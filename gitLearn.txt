@@ -18,4 +18,8 @@ windows下安装Git:
 	git add file1.txt file2.txt
 	git add file3.txt
 	git commit -m "add 3 files."
-	
+查看仓库目前的运行状态：
+	git status
+可以查看当前的文件哪些是被修改了的，仓库里哪些文件当前是没有被Git监控的。如果想查看某个文件的修改记录，可以使用：
+	git diff readme.txt
+知道了readme.txt文件做了哪些修改，再将其上传到Git仓库中就放心多了。
