@@ -1,1 +1,21 @@
-wowowowow
+windows下安装Git:
+官网下载安装程序，用默认的设置安装就可以。安装完成后，需要做最后一步设置：
+	git config --global user.name "Yourname"
+	git config --global user.email "wangwenchao_sdu@163.com"
+//自报家门，说明本机器身份。
+
+创建版本库。首先，选择一个合适的地方创建空目录
+	mkdir learngit
+	cd learngit
+	pwd	//显示当前目录
+	git init //通过此命令把当前目录变为Git的仓库
+使用windows要特别注意，不能使用windows自带的记事本。
+
+例如我们写了一个readme.txt文件，要把它加到我们创建的Git仓库中。
+	git add readme.txt	//将readme.txt添加到仓库中
+	git commit -m "wrote a readme file" //commit命令将文件提交到仓库, -m后的是对该文件的注释说明
+需要注意的是：git可以一次性添加多个文件，而commit会将上面添加的文件一并提交。例如：
+	git add file1.txt file2.txt
+	git add file3.txt
+	git commit -m "add 3 files."
+	
