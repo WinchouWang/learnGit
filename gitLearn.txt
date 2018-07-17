@@ -18,8 +18,18 @@ windows下安装Git:
 	git add file1.txt file2.txt
 	git add file3.txt
 	git commit -m "add 3 files."
+
 查看仓库目前的运行状态：
 	git status
 可以查看当前的文件哪些是被修改了的，仓库里哪些文件当前是没有被Git监控的。如果想查看某个文件的修改记录，可以使用：
 	git diff readme.txt
 知道了readme.txt文件做了哪些修改，再将其上传到Git仓库中就放心多了。
+
+查看Git仓库中的历史记录：
+	git log
+可以在后面添加 --pretty=oneline命令让显示的结果更美观。git log命令下按q则退出当前状态。
+在显示的结果中，标有HEAD的是当前版本，HEAD^表示上一个版本，HEAD^^表示的是上上一个版本。如果想要表示往上的N个版本，N非常大，可以这样写：HEAD~N
+如果把现在的版本回退到上一个版本，可以：
+	git reset --hard HEAD^
+退回上个版本之后，就已经看不到当前版本了。如果git窗口没有关，还想回到当前版本的话，就要找到当前版本的commit号，例如：
+	git reset --hard 68522f0e5c2f29dacb719fe7953e13b572f36d3f
