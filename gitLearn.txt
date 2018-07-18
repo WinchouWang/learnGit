@@ -35,3 +35,4 @@ windows下安装Git:
 	git reset --hard 68522f0e5c2f29dacb719fe7953e13b572f36d3f
 	
 Git有工作区和暂存区的概念，git add命令只是把一个个文件添加到暂存区，而commit命令一次把暂存区的文件提交到工作区了。
+而
