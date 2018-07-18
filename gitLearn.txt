@@ -35,4 +35,11 @@ windows下安装Git:
 	git reset --hard 68522f0e5c2f29dacb719fe7953e13b572f36d3f
 	
 Git有工作区和暂存区的概念，git add命令只是把一个个文件添加到暂存区，而commit命令一次把暂存区的文件提交到工作区了。
-而
+修改，第一次添加 ->  第二次修改 -> commit -> 此时提交的文件只是暂存区中第一次修改的文件，而第二次修改的文件因为没有添加到暂存区，所以没有被提交。
+cat readme.txt (cat + 文件名) 可以查询到文件中具体的内容
+git diff HEAD -- readme.txt 可以查询工作区和版本库中最新版本的区别
+
+git checkout -- readme.txt
+命令readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后没有被放在(add)暂存区，此时撤销就恢复到版本库的状态；一种是readme.txt添加到暂存区后又做了修改，此时撤销就恢复到添加到暂存区后的状态。
+也就是，让该文件回到最近一次被git add或git commit的状态。
