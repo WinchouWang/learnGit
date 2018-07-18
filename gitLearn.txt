@@ -33,3 +33,5 @@ windows下安装Git:
 	git reset --hard HEAD^
 退回上个版本之后，就已经看不到当前版本了。如果git窗口没有关，还想回到当前版本的话，就要找到当前版本的commit号，例如：
 	git reset --hard 68522f0e5c2f29dacb719fe7953e13b572f36d3f
+	
+Git有工作区和暂存区的概念，git add命令只是把一个个文件添加到暂存区，而commit命令一次把暂存区的文件提交到工作区了。
