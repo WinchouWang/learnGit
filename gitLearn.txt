@@ -54,3 +54,21 @@ git checkout -- readme.txt。
 删除文件：
 	git rm readme.txt
 remove后，如果确认删除，也要commit一下。如果删错了，可以用git checkout -- readme.txt 恢复。
+
+搭建连接远程仓库：
+1.创建SSH Key。看用户主目录中有没有.ssh目录，有的话再看这个目录下有没有id_rsa和id_rsa.pub这两个文件，没有的话：
+	ssh-keygen -t rsa "wangwenchao_sdu@163.com"
+如此生成id_rsa和id_rsa.pub两个文件。这两个文件是SSH Key秘钥对，id_rsa是私钥（不能泄露），id_rsa.pub是公钥。
+2.登录Github->个人头像->settings->Add SSH key->填上title,粘贴上add key后点击确定即可搭建远程仓库。
+3.在github上点击create repo(repository)，填上name（例如本次填的是learngit）即可创建。
+4.在本地和github上各自搭建了仓库之后，下面要做的就是把两个仓库连接起来。
+	git remote add origin git@github.com:WinchouWang/learngit.git
+git@后面的是在github上创建的仓库的地址。添加后，远程库的名字就是origin.这一步完成之后，即可把本地库与远程库连接起来。
+5.连接完成，即可以将本地仓库中的文件直接传入到github仓库中去了。
+	git push -u origin master
+这条命令就是把本地的master分支内容推送到origin中。因为第一次推送时，远程的master库是空的，所以 -u 参数即将本地的master分支与远程仓库的master分支关联起来。方便以后的上传。
+
+将github中的库克隆至本地库。
+假设自己的库的名字是gitskills.那么：
+	git clone git@github.com:WinchouWang/gitskills
+克隆后，本地cd gitskills,ls（显示一下当前文件夹文件），即可看到克隆的库中的文件。
