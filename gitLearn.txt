@@ -67,8 +67,26 @@ git@后面的是在github上创建的仓库的地址。添加后，远程库的�
 5.连接完成，即可以将本地仓库中的文件直接传入到github仓库中去了。
 	git push -u origin master
 这条命令就是把本地的master分支内容推送到origin中。因为第一次推送时，远程的master库是空的，所以 -u 参数即将本地的master分支与远程仓库的master分支关联起来。方便以后的上传。
+在之后的操作中，本地提交之后，就可以使用git push命令将本地文件推送至github中了。
 
 将github中的库克隆至本地库。
 假设自己的库的名字是gitskills.那么：
 	git clone git@github.com:WinchouWang/gitskills
 克隆后，本地cd gitskills,ls（显示一下当前文件夹文件），即可看到克隆的库中的文件。
+
+Git默认提交是在主线master分支上提交的。而HEAD指向的是master，master是指向提交的，所以HEAD指向的是当前分支。
+每次提交（commit），master分支都会向前一步，随着不断提交，master分支也会越来越长。所以，master也相当于一个指针。
+
+当我们创建新的分支，例如dev，Git新建了一个指针dev，指向master相同的提交（commit），再把HEAD指向dev，就表示当前分支在dev上。
+	创建新分支：git checkout -b dev （加上 -b 后，就表示创建并切换，相当于
+		git branch dev //创建dev分支
+ 		git checkout dev	//切换到dev分支
+	两条命令）
+	创建后，可以用：git branch 查看当前分支。
+这时再次进行提交的操作，dev就向前移动一步，而master指针是不变的。我们在dev上的工作完成后，就可以把dev和master两个分支合并起来，
+合并的方法就是让master指针直接指向dev的当前提交，但是注意，在合并之前要切换到要合并的分支上，例如，我们要把dev合并到master上：
+	git checkout master
+	git merge dev //把dev合并到master分支上，这样，刚才在dev上提交的内容就在master分支上出现了
+合并之后，就可以删除dev分支了：
+	git branch -d dev
+删除之后，查看当前分支，应该就只有master分支了。
