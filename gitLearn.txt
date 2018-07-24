@@ -90,3 +90,5 @@ Git默认提交是在主线master分支上提交的。而HEAD指向的是master�
 合并之后，就可以删除dev分支了：
 	git branch -d dev
 删除之后，查看当前分支，应该就只有master分支了。
+
+解决合并时的冲突：
