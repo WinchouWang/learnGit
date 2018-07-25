@@ -96,3 +96,9 @@ Git默认提交是在主线master分支上提交的。而HEAD指向的是master�
 	用git log --graph命令可以看到分支合并图。
 
 分支管理策略：
+	git merge --no-ff -m "......." dev 
+准备合并dev分支， --no-ff表示禁用fast forward模式。合并后，用git log查看历史。
+	git log --graph --pretty=oneline --abbrev-commit
+
+在实际开发中，一般不在master分支上工作，master分支应当是非常稳定的，仅用来发布新版本。
+干活都在dev分支上，团队里每个人都有自己的分支，所以dev分支是不稳定的，到发布新版本的时候，再合并到master分支上。在master分支上发布新版本。
