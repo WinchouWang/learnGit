@@ -96,9 +96,49 @@ Git默认提交是在主线master分支上提交的。而HEAD指向的是master�
 	用git log --graph命令可以看到分支合并图。
 
 分支管理策略：
-	git merge --no-ff -m "......." dev 
-准备合并dev分支， --no-ff表示禁用fast forward模式。合并后，用git log查看历史。
+	合并时注意fast forward模式。如果用了fast forward模式，就不能看出合并历史信息。
+	如果不用的话，可以用上述命令看到合并分支图：
+	git merge --no-ff -m "....."
 	git log --graph --pretty=oneline --abbrev-commit
+	在实际开发中，master分支应当是非常稳定的，所以并不在master分支上工作。干活都在dev分支上，大家都在dev上干活，每个人都有自己的分支，到了版本发布的时候，再把dev合并到master分支上。
 
-在实际开发中，一般不在master分支上工作，master分支应当是非常稳定的，仅用来发布新版本。
-干活都在dev分支上，团队里每个人都有自己的分支，所以dev分支是不稳定的，到发布新版本的时候，再合并到master分支上。在master分支上发布新版本。
+出现bug分支的解决方案：
+	创建一个临时分支修复bug，修复后合并分支，再将临时分支删除。
+	先把当前分支（dev）的工作现场保存起来：
+		git stash
+	再确定要在哪个分支上修复bug，假定要在master分支上创建名为issue-101的临时分支修复：
+		git checkout master
+		git checkout -b issue-101
+	修复完成后然后提交，切换回master分支，完成合并，最后删除issue-101分支。
+	bug修改完毕，就可以接着切换回dev分支，用
+		（1）git stash apply恢复，恢复后用git stash pop删除。
+		（2）git stash pop恢复并删除。
+		
+	删除后，可以用git stash list查看是否成功删除。
+可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：
+	git stash apply stash@{0}
+	
+添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该
+feature分支。
+假设，开发名为vulcan的新功能：
+	git checkout -b feature-vulcan
+	git add vulcan.java
+	git commit -m "add vulcan.java"
+	git checkout dev
+如果合并前此时接到任务放弃这个开发任务，要马上取消：
+	git branch -d feature-vulcan
+此时，会提示feature-vulcan分支还没有被合并，如果删除，就丢失掉修改，需要强行删除：
+	git branch -D feature-vulcan
+
+查看远程库的信息：
+	git remote (-v)
+加-v参数的话会显示更详细的信息。显示的会有可以抓取和推送的远程库地址，如果没有推送权限，则不显示push地址。
+
+推送分支：就是把本地分支推送到远程库上，推送时，要指定本地分支。
+	git push origin master //推送本地的master分支到远程的origin仓库中
+	git push origin dev //推送本地的dev分支到远程的origin仓库中
+master分支是主分支，所以要时刻与远程同步；dev分支是开发分支，团队所有成员都在上面工作，所以也必须推送到远程。
+
+将远程origin的dev分支拷贝到本地，用下列命令创建本地dev分支：
+	git checkout -b dev origin/dev
+拷贝到本地之后，就可以在dev上继续修改，时不时将dev推送到远程。
